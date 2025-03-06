@@ -1,4 +1,6 @@
 class Invoice < ApplicationRecord
+  has_many :items, dependent: :destroy
+
   validates :invoice_number, presence: true, uniqueness: true
   validates :date, :due_date, presence: true
   validates :invoice_type, presence: true
