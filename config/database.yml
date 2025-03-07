@@ -18,8 +18,8 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: sparrow  # Change if needed
-  password: vardara_sparrow  # Set this in environment variables instead of hardcoding
+  username: <%= Rails.application.credentials.dig(:database, :username) %>  # Change if needed
+  password: <%= Rails.application.credentials.dig(:database, :password) %>  # Set this in environment variables instead of hardcoding
   host: localhost
 
 development:
