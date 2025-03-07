@@ -1,5 +1,6 @@
 class Invoice < ApplicationRecord
   has_many :items, dependent: :destroy
+  accepts_nested_attributes_for :items
 
   validates :invoice_number, presence: true, uniqueness: true
   validates :date, :due_date, presence: true
