@@ -1,4 +1,4 @@
-class LineItem < ApplicationRecord
+class Item < ApplicationRecord
   belongs_to :invoice
 
   validates :quantity, :price, :amount, presence: true
