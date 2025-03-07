@@ -8,7 +8,12 @@ class Api::InvoicesController < ApplicationController
     ActiveRecord::Base.transaction do
       invoice = Invoice.new(invoice_params)
 
-      invoice.raw_data = params.permit!.to_h
+      invoice.raw_data = params.require(:invoice).permit(
+        :invoice_number, :date, :due_date, :notes, :template, :invoice_type, :template_config,
+        from: [ :name, :email, :address ],
+        to: [ :name, :email, :address ],
+        items: [ :id, :quantity, :price, :amount, :description ]
+      ).to_h
 
       if invoice.save
         render json: invoice, status: :created
