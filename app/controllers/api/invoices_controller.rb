@@ -13,9 +13,11 @@ class Api::InvoicesController < ApplicationController
       if invoice.save
         render json: invoice, status: :created
       else
-        render json: invoice.errors.full_message, status: :unprocessable_entity
+        render json: invoice.errors.full_messages, status: :unprocessable_entity
       end
     end
+  rescue ActiveRecord::RecordInvalid => e
+    render json: { error: e.message }, status: :unprocessable_entity
   rescue StandardError => e
     render json: { error: e.message }, status: :internal_server_error
   end
@@ -27,7 +29,7 @@ class Api::InvoicesController < ApplicationController
       :invoice_number, :date, :due_date, :notes, :template, :invoice_type, :template_config,
       from: [ :name, :email, :address ],
       to: [ :name, :email, :address ],
-      items: [ :id, :quantity, :price, :amount, :description ]
+      items_attributes: [ :quantity, :price, :amount, :description ]
   )
   end
 end
