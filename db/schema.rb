@@ -10,15 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_20_104617) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_06_101832) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "invoices", force: :cascade do |t|
-    t.string "title"
-    t.decimal "amount"
-    t.string "status"
+    t.string "invoice_number", null: false
+    t.string "invoice_type", null: false
+    t.jsonb "from", default: {}, null: false
+    t.jsonb "to", default: {}, null: false
+    t.decimal "total_amount", precision: 10, scale: 2, default: "0.0"
+    t.string "template"
+    t.text "template_config"
+    t.date "due_date", null: false
+    t.date "date", null: false
+    t.text "notes"
+    t.jsonb "raw_data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["invoice_number"], name: "index_invoices_on_invoice_number", unique: true
   end
+
+  create_table "items", force: :cascade do |t|
+    t.bigint "invoice_id", null: false
+    t.integer "quantity", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_items_on_invoice_id"
+  end
+
+  add_foreign_key "items", "invoices"
 end
