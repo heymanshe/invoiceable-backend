@@ -2,7 +2,7 @@ class AuthenticationController < ApplicationController
   before_action :authorize_request, except: [:login, :register]
 
   def login
-    user = User.find_by(email: params[:email])
+    user = User.find_by(email: login_params[:email])
 
     if user&.authenticate(login_params[:password])
       token = JsonWebToken.encode(user_id: user.id)
@@ -37,7 +37,7 @@ class AuthenticationController < ApplicationController
     render json: {
       token: token,
       exp: (Time.current + 24.hours).to_i,
-      username: user.username
+      email: user.email
     }, status: :ok
   end
 
