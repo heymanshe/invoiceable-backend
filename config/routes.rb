@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   post "/login", to: "authentication#login"
   post "/register", to: "authentication#register"
-  
+
   resources :users, only: [:index, :show, :create, :update, :destroy]
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
