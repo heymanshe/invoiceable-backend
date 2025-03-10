@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-<<<<<<< HEAD
   before_action :set_user, only: [:show, :update, :destroy]
 
   def index
@@ -47,6 +46,4 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:name, :email, :password, :password_confirmation)
   end
-=======
->>>>>>> 28d89dd (added user controlller and test files)
 end
