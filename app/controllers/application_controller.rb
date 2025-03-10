@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
     if token.present?
       begin
         @decoded = JsonWebToken.decode(token)
-        @current_user = User.find_by(id: decoded[:user_id])
+        @current_user = User.find_by(id: @decoded[:user_id])
         render_unauthorized unless @current_user
       rescue JWT::DecodeError => e
         render_unauthorized(e.message)
