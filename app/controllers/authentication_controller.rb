@@ -2,7 +2,7 @@ class AuthenticationController < ApplicationController
   before_action :authorize_request, except: [:login, :register]
 
   def login
-    user = User.find_by_email(email: login_params[:email])
+    user = User.find_by(email: params[:email])
 
     if user&.authenticate(login_params[:password])
       token = JsonWebToken.encode(user_id: user.id)
