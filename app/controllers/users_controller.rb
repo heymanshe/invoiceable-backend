@@ -36,23 +36,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def update
-    if @user.update(user_params)
-      render json: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    if @user
-      @user.destroy
-      head :no_content
-    else
-      render json: { error: "User not found" }, status: :not_found
-    end
-  end
-
   private
 
   def set_user
