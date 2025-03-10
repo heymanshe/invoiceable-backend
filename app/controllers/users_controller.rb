@@ -6,6 +6,9 @@ class UsersController < ApplicationController
     render json: @users
   end
 
+  def show
+    render json: @user
+  end
 
   def create
     @user = User.new(user_params)
@@ -32,7 +35,7 @@ class UsersController < ApplicationController
       render json: { error: "User not found" }, status: :not_found
     end
   end
-  
+
   private
 
   def set_user
