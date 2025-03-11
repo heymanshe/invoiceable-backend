@@ -17,6 +17,7 @@ class AuthenticationController < ApplicationController
 
     if user.save
       token = JsonWebToken.encode(user_id: user.id)
+      UserMailer.welcome_email(user).deliver_later
       render json: { token: token, user: user }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
