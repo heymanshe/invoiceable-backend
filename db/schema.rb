@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_10_153918) do
-
+ActiveRecord::Schema[8.0].define(version: 2025_03_11_053913) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +49,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_153918) do
     t.index ["invoice_id"], name: "index_items_on_invoice_id"
   end
 
+  create_table "templates", force: :cascade do |t|
+    t.string "name"
+    t.bigint "industry_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["industry_id"], name: "index_templates_on_industry_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -59,4 +66,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_10_153918) do
   end
 
   add_foreign_key "items", "invoices"
+  add_foreign_key "templates", "industries"
 end
