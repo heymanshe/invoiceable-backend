@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
   before_action :authorize_request
 
+  wrap_parameters format: []
+
   def not_found
     render json: { error: "not_found" },  status: :not_found
   end
