@@ -8,8 +8,19 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+User.destroy_all
 Template.destroy_all
 Industry.destroy_all
+
+puts "Seeding users..."
+
+User.create!([
+  { name: "Alice Johnson", email: "alice@example.com", password: "password123" },
+  { name: "Bob Smith", email: "bob@example.com", password: "securepass" },
+  { name: "Charlie Brown", email: "charlie@example.com", password: "letmein123" },
+  { name: "Ross Carpenter", email: "ross@example.com", password: "iamross" },
+  { name: "Rachel Dylan", email: "rachel@example.com", password: "iamrachel" }
+])
 
 puts "Seeding industries..."
 
