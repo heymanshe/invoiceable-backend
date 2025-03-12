@@ -1,0 +1,2 @@
+class IndustryController < ApplicationController
+end
