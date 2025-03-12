@@ -1,5 +1,4 @@
 class TemplatesController < ApplicationController
-
   before_action :find_template, only: [ :show, :update, :destroy ]
 
   def index
