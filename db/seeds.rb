@@ -7,3 +7,46 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Template.destroy_all
+Industry.destroy_all
+
+puts "Seeding industries..."
+
+industries = [
+  { name: "General" },
+  { name: "Freelancer" },
+  { name: "Technology" },
+  { name: "Finance" },
+  { name: "Healthcare" }
+]
+
+industry_records = industries.map { |industry| Industry.create!(industry) }
+
+puts "Seeding templates..."
+
+templates = [
+  { name: "Basic Invoice", industry_id: industry_records[0].id, preview_url: "https://example.com/previews/basic_invoice.jpg" },
+  { name: "Simple Estimate", industry_id: industry_records[0].id, preview_url: "https://example.com/previews/simple_estimate.jpg" },
+  { name: "Minimal", industry_id: industry_records[0].id, preview_url: "https://example.com/previews/minimal.jpg" },
+
+  { name: "Project Quote", industry_id: industry_records[1].id, preview_url: "https://example.com/previews/project_quote.jpg" },
+  { name: "Freelancer", industry_id: industry_records[1].id, preview_url: "https://example.com/previews/freelancer.jpg" },
+
+  { name: "Modern", industry_id: industry_records[2].id, preview_url: "https://example.com/previews/modern.jpg" },
+  { name: "Software Development Invoice", industry_id: industry_records[2].id, preview_url: "https://example.com/previews/software_invoice.jpg" },
+  { name: "IT Service Quote", industry_id: industry_records[2].id, preview_url: "https://example.com/previews/it_service_quote.jpg" },
+
+  { name: "Professional", industry_id: industry_records[3].id, preview_url: "https://example.com/previews/professional.jpg" },
+  { name: "Financial Report", industry_id: industry_records[3].id, preview_url: "https://example.com/previews/financial_report.jpg" },
+  { name: "Investment Summary", industry_id: industry_records[3].id, preview_url: "https://example.com/previews/investment_summary.jpg" },
+
+  { name: "Medical Bill", industry_id: industry_records[4].id, preview_url: "https://example.com/previews/medical_bill.jpg" },
+  { name: "Patient Invoice", industry_id: industry_records[4].id, preview_url: "https://example.com/previews/patient_invoice.jpg" }
+]
+
+templates.each do |template|
+  Template.create!(template)
+end
+
+puts "Seeding completed successfully!"
