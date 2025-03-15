@@ -2,8 +2,13 @@ class TemplatesController < ApplicationController
   before_action :find_template, only: [ :show, :update, :destroy ]
 
   def index
-    @templates = Template.all
-    render json: @templates
+    respond_to do |format|
+      format.html
+
+      format.json do
+        render json: @templates
+      end
+    end
   end
 
   def show
