@@ -2,6 +2,7 @@ class TemplatesController < ApplicationController
   before_action :find_template, only: [ :show, :update, :destroy ]
 
   def index
+    @templates = Template.all
     respond_to do |format|
       format.html
 
