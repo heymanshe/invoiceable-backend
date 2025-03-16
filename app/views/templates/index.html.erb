@@ -1,0 +1,31 @@
+<h1>Templates</h1>
+
+<div>
+  <button class="btn btn-success">New Template</button>
+</div>
+
+<div class="border p-2 mt-3">
+  <div class="bg-light p-2 fw-bold d-flex">
+    <span class="col-1">ID</span>
+    <span class="col-3">Name</span>
+    <span class="col-3">Industry</span>
+    <span class="col-2">Preview</span>
+    <span class="col-3">Actions</span>
+  </div>
+
+  <% @templates.each do |template| %>
+    <div class="border-top p-2 d-flex align-items-center">
+      <span class="col-1"><%= template.id %></span>
+      <span class="col-3"><%= template.name %></span>
+      <span class="col-3"><%= template.industry.name %></span>
+      <span class="col-2">
+        <a href="<%= template.preview_url %>" target="_blank">View</a>
+      </span>
+      <span class="col-3">
+        <button class="btn btn-warning btn-sm" onclick="editTemplate(<%= template.id %>, '<%= template.name %>', '<%= template.preview_url %>')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteTemplate(<%= template.id %>)">Delete</button>
+      </span>
+    </div>
+  <% end %>
+</div>
+
