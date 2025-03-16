@@ -1,0 +1,81 @@
+<h1>Templates</h1>
+
+<div>
+  <button class="btn btn-success mb-3" onclick="showCreateForm()">New Template</button>
+</div>
+
+<div id="create-form" class="bg-gray-100 p-4 rounded" style="display: none;">
+  <div>
+    <form id="new-template-form">
+      <div class="mb-2">
+        <label>Template Name</label>
+        <input type="text" name="name" class="border p-2 w-full" required>
+      </div>
+
+      <div class="mb-2">
+        <label>Preview URL</label>
+        <input type="text" name="preview_url" class="border p-2 w-full">
+      </div>
+
+      <div class="mb-2">
+        <label>Industry</label>
+        <select name="industry_id" class="border p-2 w-full" required>
+          <option value="">Select Industry</option>
+          <% Industry.all.each do |industry| %>
+            <option value="<%= industry.id %>"><%= industry.name %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="border p-2 mt-3">
+  <div class="bg-light p-2 fw-bold d-flex">
+    <span class="col-1">ID</span>
+    <span class="col-3">Name</span>
+    <span class="col-3">Industry</span>
+    <span class="col-2">Preview</span>
+    <span class="col-3">Actions</span>
+  </div>
+
+  <% @templates.each do |template| %>
+    <div class="border-top p-2 d-flex align-items-center">
+      <span class="col-1"><%= template.id %></span>
+      <span class="col-3"><%= template.name %></span>
+      <span class="col-3"><%= template.industry.name %></span>
+      <span class="col-2">
+        <a href="<%= template.preview_url %>" target="_blank">View</a>
+      </span>
+      <span class="col-3">
+        <button class="btn btn-warning btn-sm" onclick="editTemplate(<%= template.id %>, '<%= template.name %>', '<%= template.preview_url %>')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteTemplate(<%= template.id %>)">Delete</button>
+      </span>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  function showCreateForm() {
+  document.getElementById('create-form').style.display = "block";
+  }
+
+  document.getElementById('new-template-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let formData = new FormData(this);
+
+    fetch('/templates', {
+      method: 'POST',
+      headers: { 'X-CSRF-Token': '<%= form_authenticity_token %>' },
+      body: formData
+    })
+    .then(response => response.json())
+    .then(() => location.reload());
+  });
+</script>
+
+

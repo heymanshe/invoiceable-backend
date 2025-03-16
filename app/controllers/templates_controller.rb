@@ -3,7 +3,13 @@ class TemplatesController < ApplicationController
 
   def index
     @templates = Template.all
-    render json: @templates
+    respond_to do |format|
+      format.html
+
+      format.json do
+        render json: @templates
+      end
+    end
   end
 
   def show
